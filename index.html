@@ -1,92 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    
-    <title>Random Number and Link in Frame</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Number Generator</title>
+   
+<style>
+   
+    body {
+        font-family: 'Arial', sans-serif;
+        background: url('') center/cover;
+        text-align: center;
+        margin: 20px;
+        color: #ffffff;
+    }
 
-    <style>
-        /* Your styles remain unchanged */
-    </style>
+    button {
+        background: linear-gradient(to right, #ff8c00, #ffd700);
+        font-size: 20px;
+        padding: 10px;
+        margin: 10px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background 0.3s ease;
+    }
+
+    button:hover {
+        background: linear-gradient(to right, #ec6ead, #3494e6);
+    }
+
+    p {
+        font-size: 24px;
+        margin-top: 20px;
+    }
+
+    .frame-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .frame {
+        width: 100%;
+        height: 100px;
+        border: none;
+    }
+
+    #searchCircle {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.5);
+        color: #3494e6;
+        font-size: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 20px auto;
+        position: relative;
+    }
+
+  
+
+</style>
+
 </head>
+
 <body>
+    <button onclick="openLink('https://rewards.bing.com')">REWARDS</button>
+    <button onclick="openLink('https://rewards.bing.com/status')">STATUS</button>
+    <button onclick="openLinkSameWindow('https://dark-shadowblade.github.io/MSEdgeSearchClickerabhishek/')">Re-Start</button>
 
-<!-- Toggle button for mode -->
-<button id="modeToggleButton" onclick="toggleMode()">Switch Mode</button>
+    <div id="searchCircle">
+        <div class="small-circle"></div>
+        <div class="small-circle"></div>
+        <div class="small-circle"></div>
+        <div class="small-circle"></div>
+        
+    </div>
 
-<!-- Toggle button -->
-<button id="toggleButton" onclick="toggleReloading()">Stop</button>
+    <div class="frame-container">
+        <iframe id="bingFrame" class="frame"></iframe>
+    </div>
 
-<!-- Frame for displaying content -->
-<div class="frame-container">
-    <iframe id="myFrame1" class="frame" width="100%" height="500"></iframe>
-    <iframe id="myFrame2" class="frame" width="100%" height="500"></iframe>
-</div>
+    <script>
+        var intervalId;
+        var isLooping = true;
+        var searchCounter = 0;
+        var maxSearches = 21;
 
-<script>
-    var isReloading = true;
-    var reloadInterval;
-    var isMobileMode = false;
+        function generateRandomNumber() {
+            if (searchCounter < maxSearches) {
+                var randomNumber = Math.floor(Math.random() * 10008000) + 1;
 
-    function toggleReloading() {
-        isReloading = !isReloading;
-        document.getElementById('toggleButton').innerHTML = isReloading ? 'Stop' : 'Start';
+                document.getElementById('bingFrame').src = "https://www.bing.com/search?q=" + encodeURIComponent(randomNumber) + "&qs=n&form=QBRE&sp=-1&lq=1&pq=dwadawbnbwacccwadaa&sc=0-19&sk=&cvid=D8949155E22D4611BA00FA1AB65BBF4B&ghsh=0&ghacc=0&ghpl=";
 
-        if (isReloading) {
-            reloadFrame();
-            reloadInterval = setInterval(reloadFrame, 1500);
-        } else {
-            clearInterval(reloadInterval);
+                searchCounter++;
+                document.getElementById('searchCircle').innerHTML= searchCounter;
+            } else {
+                clearInterval(intervalId);
+                toggleLoop(); // Update button text and styling
+            }
         }
-    }
 
-    function toggleMode() {
-        isMobileMode = !isMobileMode;
-        document.getElementById('modeToggleButton').innerHTML = isMobileMode ? 'Switch to Desktop' : 'Switch to Mobile';
-
-        updateModeStyles();
-    }
-
-    function updateModeStyles() {
-        var frameContainer = document.querySelector('.frame-container');
-        var frames = document.querySelectorAll('.frame');
-
-        if (isMobileMode) {
-            frameContainer.style.flexDirection = 'column';
-
-            frames.forEach(function (frame) {
-                frame.style.width = '100%';
-                frame.style.height = '200px';
-            });
-        } else {
-            // Reset to desktop styles
-            frameContainer.style.flexDirection = 'row';
-
-            frames.forEach(function (frame) {
-                frame.style.width = '48%';
-                frame.style.height = '600px';
-            });
+        function openLink(link) {
+            window.open(link, '_blank');
         }
-    }
 
-    function generateRandomNumber() {
-        return Math.floor(Math.random() * 100000) + 1;
-    }
+        function openLinkSameWindow(link) {
+            window.location.href = link;
+        }
 
-    function reloadFrame() {
-        var random_number = generateRandomNumber();
-        console.log("Random Number:", random_number);
-        document.getElementById('myFrame1').src = 'https://abhishekkumar25122512.github.io/Abhishek-final-script/';
-        document.getElementById('myFrame2').src = 'https://example.com'; // Replace with your desired URL
-    }
+        intervalId = setInterval(generateRandomNumber, 7000);
+        generateRandomNumber();
 
-    // Call initially to set the default mode
-    updateModeStyles();
-    // Start reloading on page load
-    if (isReloading) {
-        reloadInterval = setInterval(reloadFrame, 5000);
-    }
-</script>
-
+        
+    </script>
 </body>
+
 </html>
