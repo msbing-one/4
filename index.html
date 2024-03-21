@@ -1,122 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Number Generator</title>
-   
-<style>
-   
-    body {
-        font-family: 'Arial', sans-serif;
-        background: url('IMG-20231212-WA0005.jpg') center/cover;
-        text-align: center;
-        margin: 20px;
-        color: #ffffff;
-    }
-
-    button {
-        background: linear-gradient(to right, #ff8c00, #ffd700);
-        font-size: 20px;
-        padding: 10px;
-        margin: 10px;
-        border: none;
-        cursor: pointer;
-        border-radius: 5px;
-        transition: background 0.3s ease;
-    }
-
-    button:hover {
-        background: linear-gradient(to right, #ec6ead, #3494e6);
-    }
-
-    p {
-        font-size: 24px;
-        margin-top: 20px;
-    }
-
-    .frame-container {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .frame {
-        width: 100%;
-        height: 100px;
-        border: none;
-    }
-
-    #searchCircle {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        background-color: rgba(255, 255, 255, 0.5);
-        color: #3494e6;
-        font-size: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 20px auto;
-        position: relative;
-    }
-
-  
-
-</style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auto Redirect</title>
+<script>
+    setTimeout(function(){
+        var newWindow = window.open("file:///storage/emulated/0/Mobile.html", "_blank");
+        setTimeout(function(){
+            newWindow.close();
+        }, 24000); // Close the window after 24 seconds
+    }, 2500); // Open the window after 2.5 seconds
+</script>
 </head>
-
 <body>
-    <button onclick="openLink('https://rewards.bing.com')">REWARDS</button>
-    <button onclick="openLink('https://rewards.bing.com/status')">STATUS</button>
-    <button onclick="openLinkSameWindow('https://msbing-one.github.io/4/')">Re-Start</button>
-
-    <div id="searchCircle">
-        <div class="small-circle"></div>
-        <div class="small-circle"></div>
-        <div class="small-circle"></div>
-        <div class="small-circle"></div>
-        
-    </div>
-
-    <div class="frame-container">
-        <iframe id="bingFrame" class="frame"></iframe>
-    </div>
-
-    <script>
-        var intervalId;
-        var isLooping = true;
-        var searchCounter = 0;
-        var maxSearches = 21;
-
-        function generateRandomNumber() {
-            if (searchCounter < maxSearches) {
-                var randomNumber = Math.floor(Math.random() * 10008000) + 1;
-
-                document.getElementById('bingFrame').src = "https://www.bing.com/search?q=" + encodeURIComponent(randomNumber) + "&qs=n&form=QBRE&sp=-1&lq=1&pq=dwadawbnbwacccwadaa&sc=0-19&sk=&cvid=D8949155E22D4611BA00FA1AB65BBF4B&ghsh=0&ghacc=0&ghpl=";
-
-                searchCounter++;
-                document.getElementById('searchCircle').innerHTML= searchCounter;
-            } else {
-                clearInterval(intervalId);
-                toggleLoop(); // Update button text and styling
-            }
-        }
-
-        function openLink(link) {
-            window.open(link, '_blank');
-        }
-
-        function openLinkSameWindow(link) {
-            window.location.href = link;
-        }
-
-        intervalId = setInterval(generateRandomNumber, 360000);
-        generateRandomNumber();
-
-        
-    </script>
+<!-- Optional: You can add content here if you want -->
 </body>
-
 </html>
